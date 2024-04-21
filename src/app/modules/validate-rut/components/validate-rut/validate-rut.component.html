@@ -1,0 +1,21 @@
+<form class="h-screen w-screen bg-slate-200 flex justify-center items-center flex-col" (ngSubmit)="validate()"
+  [formGroup]="form">
+  <div class="flex justify-center items-center flex-col gap-4 bg-slate-100 p-10 shadow">
+    <h2 class="text-center font-semibold uppercase mb-5">Validación de RUT</h2>
+
+    <label>Ingrese el RUT</label>
+    <div class="d-flex">
+      <input type="text" class="px-2 py-1 focus:outline-none w-8/12 tracking-widest font-semibold text-center"
+        formControlName="rut" maxlength="8" [ngClass]="getValidationStyle('rut')">
+      <span class="w-1/12 px-1">-</span>
+      <input type="text" class="px-2 py-1 focus:outline-none w-3/12 font-semibold  text-center"
+        formControlName="validatorDigit" maxlength="1" [ngClass]="getValidationStyle('validatorDigit')">
+    </div>
+    <p class="text-xs text-red-400" [ngClass]="(this.form.invalid && this.form.dirty) ? '' : 'invisible'">El número RUT
+      tiene un formato inválido</p>
+
+    <button type="submit"
+      class="w-28 py-1 bg-green-600 hover:bg-green-500 duration-300 rounded text-white ">Validar</button>
+  </div>
+
+</form>
