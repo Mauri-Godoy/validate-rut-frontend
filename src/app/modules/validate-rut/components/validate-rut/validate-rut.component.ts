@@ -22,7 +22,7 @@ export class ValidateRutComponent {
 
   initForm() {
     this.form = this.fb.group({
-      rut: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(8), Validators.pattern(/^\d+$/)]],
+      rut: ["", [Validators.required, Validators.minLength(7), Validators.maxLength(8), Validators.pattern(/^\d+$/)]],
       validatorDigit: ["", [Validators.required, Validators.maxLength(1), Validators.pattern(/^[\dKk]$/)]]
     })
   }
@@ -30,7 +30,6 @@ export class ValidateRutComponent {
   validate() {
     if (this.form.invalid) {
       this.form.markAsDirty()
-      return;
     }
 
     const validateRut: ValidateRut = this.form.value
@@ -38,18 +37,17 @@ export class ValidateRutComponent {
     this.validateRutService.validate(validateRut)
       .subscribe({
         next: (data) => {
-          this.toast(data.result ? "Válido" : "Inválido", !data.result)
+          this.toast(data.result ? "Documento válido" : "Documento inválido", !data.result)
         },
-        error: () => {
-          this.toast("Error al intentar validar", true)
-        }
+        error: (error) =>
+          this.toast(error.error.message[0] || "Ocurrio un error", true)
       })
   }
 
   toast(message: string, isError: boolean = false) {
     if (!isError)
-      this.toastr.success(message, '', { positionClass: 'toast-bottom-center' });
-    else this.toastr.error(message, '', { positionClass: 'toast-bottom-center' })
+      this.toastr.success(message, "", { positionClass: 'toast-bottom-center' });
+    else this.toastr.error(message, "", { positionClass: 'toast-bottom-center' })
   }
 
   get rutField() {
@@ -63,8 +61,6 @@ export class ValidateRutComponent {
   getValidationStyle(path: string) {
     const control: AbstractControl | null = this.form.get(path);
     const isValid: boolean = control?.valid || !control?.dirty;
-
-    debugger
     return isValid ? '' : 'shadow shadow-red-400'
   }
 }

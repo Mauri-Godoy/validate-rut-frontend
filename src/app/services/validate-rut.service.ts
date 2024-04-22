@@ -13,6 +13,6 @@ export class ValidateRutService {
   constructor(private http: HttpClient) { }
 
   validate(validateRut: ValidateRut) {
-    return this.http.post<ValidateRut>(`${URL_BASE}/rut/validate`, validateRut)
+    return this.http.post<ValidateRut>(`${URL_BASE}/api/validation`, validateRut)
   }
 }
