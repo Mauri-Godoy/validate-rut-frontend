@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ValidateRut } from '../models/validate-rut.model';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 
 const URL_BASE = environment.URL;
 
